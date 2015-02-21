@@ -16,10 +16,10 @@ def start():
 	data = bottle.request.json
 
 	return json.dumps({
-		'name': 'battlesnake-python',
+		'name': our_name,
 		'color': '#00ff00',
 		'head_url': 'http://battlesnake-python.herokuapp.com',
-		'taunt': 'battlesnake-python!'
+		'taunt': 'IM GUNNA WRECK IT!!!'
 	})
 
 
