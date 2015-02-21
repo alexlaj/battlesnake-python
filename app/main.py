@@ -82,7 +82,6 @@ def detect_bad(data, our_snake):
 		if(curr_score > best_score):
 			best_score = curr_score
 			best_space = curr_space
-		print(curr_score)
 		curr_space += 1
 	move_space = good_spaces[best_space]
 	return map_direction(head_x, head_y, move_space[0], move_space[1])
@@ -121,10 +120,12 @@ def check_around(board, x, y):
 	return good_spaces
 
 def check_space(board, x, y):
-	is_wall = not(x > 0 and x < len(board[0]) - 1 and y > 0 and y < len(board) - 1) 
+	print(len(board[0]))
+	print(len(board))
+	is_wall = x < 0 or x > len(board[0]) - 1 or y < 0 or y > len(board) - 1 
 	if(is_wall):
 		return [-1, -1, "wall"]
-	if(board[x][y]["state"] in good_array):
+	elif(board[x][y]["state"] in good_array):
 		return [x, y, board[x][y]["state"]]
 	return False
 @bottle.post('/end')
