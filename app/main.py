@@ -110,6 +110,8 @@ def check_around(board, x, y):
 	return good_spaces
 
 def check_space(board, x, y):
+	print(len(board[0]))
+	print(len(board))
 	is_wall = not(x > 0 or x < len(board[0]) or y > 0 or y < len(board)) 
 	if(is_wall):
 		return [-1, -1, "wall"]
