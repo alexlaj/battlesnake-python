@@ -110,10 +110,10 @@ def check_around(board, x, y):
 	return good_spaces
 
 def check_space(board, x, y):
-	wall = x > 0 and x < len(board[0]) - 1 and y > 0 and y < len(board) - 1 
-	if(!wall):
+	is_wall = not(x > 0 and x < len(board[0]) - 1 and y > 0 and y < len(board) - 1) 
+	if(is_wall):
 		return [-1, -1, "wall"]
-	if(wall and board[x][y]["state"] in good_array):
+	if(board[x][y]["state"] in good_array):
 		return [x, y, board[x][y]["state"]]
 	return False
 @bottle.post('/end')
