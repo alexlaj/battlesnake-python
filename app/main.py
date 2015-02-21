@@ -27,10 +27,10 @@ def start():
 def move():
 	data = bottle.request.json
 	
-	default(data)
+	move = default(data)
 
 	return json.dumps({
-		'move': 'left',
+		'move': move,
 		'taunt': 'battlesnake-python!'
 	})
 
@@ -44,11 +44,72 @@ def default(data):
 		snake_dict[snake["name"]] = snake
 		if snake["name"] == our_name:
 			our_snake = snake
-	print(snakes)
-	print()
-	print(our_snake)
+	move = detect_bad(data, our_snake)
 	sys.stdout.flush()
+	return move
 
+good_array = ["food", "empty"]
+scores = { "head" : 0, "body" : 1, "empty" : 2, "food" : 3 }
+def detect_bad(data, our_snake):
+	board = data["board"]
+	head = our_snake["coords"][0]
+	head_x = head[0]
+	head_y = head[1]
+	good_spaces = check_around(board, head_x, head_y)
+	print(good_spaces)
+	print()
+	best_space = 0
+	best_score = 0
+	curr_space = 0
+	for space in good_spaces:
+		curr_score = scores[space[2]]
+		temp = check_around(board, space[0], space[1])
+		for good_space in temp:
+			curr_score += scores[good_space[2]]
+		if(curr_score > best_score):
+			best_score = curr_score
+			best_space = curr_space
+		print(curr_score)
+		curr_space += 1
+	move_space = good_spaces[best_space]
+	return map_direction(head_x, head_y, move_space[0], move_space[1])
+
+def map_direction(head_x, head_y, x, y):
+	if(x < head_x):
+		return "left"
+	elif(y < head_y):
+		return "up"
+	elif(x > head_x):
+		return "right"
+	elif(y > head_y):
+		return "down"
+
+def check_around(board, x, y):
+	good_spaces = []
+	#check left
+	space = check_space(board, x-1, y)
+	if(space != false):
+		good_spaces.append(space)
+	#check up
+	space = check_space(board, x, y+1)
+	if(space != false):
+		good_spaces.append(space)
+	#check right
+	space = check_space(board, x+1, y)
+	if(space != false):
+		good_spaces.append(space)
+	#check down
+	space = check_space(board, x, y-1)
+	if(space != false):
+		good_spaces.append(space)
+	
+	return good_spaces
+
+def check_space(board, x, y):
+	wall = x > 0 && x < len(board[0]) - 1 && y > 0 && y < len(board) - 1 
+	if(wall && board[x][y]["state"] in good_array):
+		return [x, y, board[x][y]["state"]]
+	return false
 @bottle.post('/end')
 def end():
 	data = bottle.request.json
