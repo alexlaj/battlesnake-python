@@ -111,7 +111,7 @@ def check_around(board, x, y):
 def check_space(board, x, y):
 	print(len(board[0]))
 	print(len(board))
-	is_wall = not(x > 0 or x < len(board[0]) - 1 or y > 0 or y < len(board) - 1) 
+	is_wall = not(x > 0 or x < len(board[0]) - 2 or y > 0 or y < len(board) - 2) 
 	if(is_wall):
 		return [-1, -1, "wall"]
 	if(board[x][y]["state"] in good_array):
