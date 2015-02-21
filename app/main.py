@@ -18,7 +18,7 @@ def start():
 	return json.dumps({
 		'name': our_name,
 		'color': '#00ff00',
-		'head_url': 'http://battlesnake-python.herokuapp.com',
+		'head_url': 'http://a1b1.herokuapp.com/ralph_full.png',
 		'taunt': 'IM GUNNA WRECK IT!!!'
 	})
 
