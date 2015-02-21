@@ -3,7 +3,7 @@ import json
 
 @bottle.get('/')
 def index():
-    return """
+	return """
         <a href="https://github.com/sendwithus/battlesnake-python">
             battlesnake-python
         </a>
@@ -12,26 +12,26 @@ def index():
 
 @bottle.post('/start')
 def start():
-    data = bottle.request.json
+	data = bottle.request.json
 
-    return json.dumps({
-        'name': 'battlesnake-python',
-        'color': '#00ff00',
-        'head_url': 'http://battlesnake-python.herokuapp.com',
-        'taunt': 'battlesnake-python!'
-    })
+	return json.dumps({
+		'name': 'battlesnake-python',
+		'color': '#00ff00',
+		'head_url': 'http://battlesnake-python.herokuapp.com',
+		'taunt': 'battlesnake-python!'
+	})
 
 
 @bottle.post('/move')
 def move():
-    data = bottle.request.json
+	data = bottle.request.json
 	
 	default(data)
 
-    return json.dumps({
-        'move': 'left',
-        'taunt': 'battlesnake-python!'
-    })
+	return json.dumps({
+		'move': 'left',
+		'taunt': 'battlesnake-python!'
+	})
 
 our_name = "a1b1"
 	
@@ -50,9 +50,9 @@ def default(data):
 
 @bottle.post('/end')
 def end():
-    data = bottle.request.json
+	data = bottle.request.json
 
-    return json.dumps({})
+	return json.dumps({})
 
 
 # Expose WSGI app
