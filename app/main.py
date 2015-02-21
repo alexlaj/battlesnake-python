@@ -18,7 +18,7 @@ def start():
 	return json.dumps({
 		'name': our_name,
 		'color': '#00ff00',
-		'head_url': 'http://battlesnake-python.herokuapp.com',
+		'head_url': 'https://github.com/alexlaj/battlesnake-python/blob/master/ralph_full.png',
 		'taunt': 'IM GUNNA WRECK IT!!!'
 	})
 
@@ -49,7 +49,7 @@ def default(data):
 	return move
 
 good_array = ["food", "empty"]
-scores = { "head" : 0, "body" : 1, "empty" : 2, "food" : 3 }
+scores = { "head" : 0, "body" : 1, "wall" : 1.5, "empty" : 2, "food" : 3 }
 def detect_bad(data, our_snake):
 	board = data["board"]
 	head = our_snake["coords"][0]
@@ -62,10 +62,12 @@ def detect_bad(data, our_snake):
 	best_score = 0
 	curr_space = 0
 	for space in good_spaces:
-		curr_score = scores[space[2]]
-		temp = check_around(board, space[0], space[1])
-		for good_space in temp:
-			curr_score += scores[good_space[2]]
+		curr_score = 0
+		if(space[0] >= 0):
+			curr_score = scores[space[2]]
+			temp = check_around(board, space[0], space[1])
+			for good_space in temp:
+				curr_score += scores[good_space[2]]
 		if(curr_score > best_score):
 			best_score = curr_score
 			best_space = curr_space
@@ -86,6 +88,8 @@ def map_direction(head_x, head_y, x, y):
 
 def check_around(board, x, y):
 	good_spaces = []
+	if(x < 0 or y < 0):
+		return good_spaces
 	#check left
 	space = check_space(board, x-1, y)
 	if(space != False):
@@ -107,6 +111,8 @@ def check_around(board, x, y):
 
 def check_space(board, x, y):
 	wall = x > 0 and x < len(board[0]) - 1 and y > 0 and y < len(board) - 1 
+	if(!wall):
+		return [-1, -1, "wall"]
 	if(wall and board[x][y]["state"] in good_array):
 		return [x, y, board[x][y]["state"]]
 	return False
