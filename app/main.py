@@ -1,7 +1,6 @@
 import bottle
 import json
 
-
 @bottle.get('/')
 def index():
     return """
@@ -26,12 +25,28 @@ def start():
 @bottle.post('/move')
 def move():
     data = bottle.request.json
+	
+	default(data)
 
     return json.dumps({
         'move': 'left',
         'taunt': 'battlesnake-python!'
     })
 
+our_name = "a1b1"
+	
+def default(data):
+	snake_dict = {}
+	snakes = data["snakes"]
+	our_snake = {}
+	for snake in snakes:
+		snake_dict[snake["name"]] = snake
+		if snake["name"] == our_name:
+			our_snake = snake
+	print(snakes)
+	print()
+	print(our_snake)
+	
 
 @bottle.post('/end')
 def end():
