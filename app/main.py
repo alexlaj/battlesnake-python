@@ -88,28 +88,28 @@ def check_around(board, x, y):
 	good_spaces = []
 	#check left
 	space = check_space(board, x-1, y)
-	if(space != false):
+	if(space != False):
 		good_spaces.append(space)
 	#check up
 	space = check_space(board, x, y+1)
-	if(space != false):
+	if(space != False):
 		good_spaces.append(space)
 	#check right
 	space = check_space(board, x+1, y)
-	if(space != false):
+	if(space != False):
 		good_spaces.append(space)
 	#check down
 	space = check_space(board, x, y-1)
-	if(space != false):
+	if(space != False):
 		good_spaces.append(space)
 	
 	return good_spaces
 
 def check_space(board, x, y):
-	wall = x > 0 && x < len(board[0]) - 1 && y > 0 && y < len(board) - 1 
-	if(wall && board[x][y]["state"] in good_array):
+	wall = x > 0 and x < len(board[0]) - 1 and y > 0 and y < len(board) - 1 
+	if(wall and board[x][y]["state"] in good_array):
 		return [x, y, board[x][y]["state"]]
-	return false
+	return False
 @bottle.post('/end')
 def end():
 	data = bottle.request.json
