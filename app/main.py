@@ -46,7 +46,7 @@ def default(data):
 	print(snakes)
 	print()
 	print(our_snake)
-	
+	sys.stdout.flush()
 
 @bottle.post('/end')
 def end():
