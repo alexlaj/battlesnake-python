@@ -42,7 +42,7 @@ def move():
 
 	return json.dumps({
 		'move': move,
-		'taunt': 'battlesnake-python!'
+		'taunt': taunts[data['turn']%10]
 	})
 
 our_name = "a1b1"
