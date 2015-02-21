@@ -71,7 +71,6 @@ def detect_bad(data, our_snake):
 		if(curr_score > best_score):
 			best_score = curr_score
 			best_space = curr_space
-		print(curr_score)
 		curr_space += 1
 	move_space = good_spaces[best_space]
 	return map_direction(head_x, head_y, move_space[0], move_space[1])
@@ -112,7 +111,7 @@ def check_around(board, x, y):
 def check_space(board, x, y):
 	print(len(board[0]))
 	print(len(board))
-	is_wall = not(x > 0 or x < len(board[0]) or y > 0 or y < len(board)) 
+	is_wall = not(x > 0 or x < len(board[0] - 1) or y > 0 or y < len(board) - 1) 
 	if(is_wall):
 		return [-1, -1, "wall"]
 	if(board[x][y]["state"] in good_array):
