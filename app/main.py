@@ -18,7 +18,7 @@ def start():
 	return json.dumps({
 		'name': our_name,
 		'color': '#00ff00',
-		'head_url': 'http://a1b1.herokuapp.com/ralph_full.png',
+		'head_url': 'http://a1b1.herokuapp.com',
 		'taunt': 'IM GUNNA WRECK IT!!!'
 	})
 
