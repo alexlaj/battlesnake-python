@@ -4,14 +4,14 @@ import sys
 
 taunts = ["I'm Gonna Wreck-It!",
 "I'm not from the candy tree department.",
-"I am bad and that is good, I will never be good and that's not bad, there's no one I'd rather be than me.",
 "I'm Gonna Wreck-It!",
-"It's kind of hard to do your job when nobody likes you for doing it.",
+"There's no one I'd rather be than me.",
 "I'm Gonna Wreck-It!",
-"I guess it turns out that I don't really need a medal to prove that I'm a good guy and if that little girl likes me, how bad can I be?",
+"It's kind of hard to do your job...",
+"...when nobody likes you for doing it.",
 "I'm Gonna Wreck-It!",
-"I'm already happy, I got the coolest job in the world! It may not be as fancy as being president, but I have a duty, a big duty!",
-"I wonder how many licks it would take to get to your center?"]
+"I wonder how many licks it would take to get to your center?",
+"I'm Gonna Wreck-It!"]
 
 @bottle.get('/')
 def index():
@@ -29,7 +29,7 @@ def start():
 	return json.dumps({
 		'name': our_name,
 		'color': '#00ff00',
-		'head_url': 'https://github.com/alexlaj/battlesnake-python/blob/master/ralph_full.png',
+		'head_url': 'https://raw.githubusercontent.com/alexlaj/battlesnake-python/master/ralph_full.png',
 		'taunt': 'IM GUNNA WRECK IT!!!'
 	})
 
@@ -39,11 +39,16 @@ def move():
 	data = bottle.request.json
 	
 	move = default(data)
-
-	return json.dumps({
-		'move': move,
-		'taunt': taunts[data['turn']%10]
-	})
+	if (data['turn']%3 == 0):
+		theTaunt = taunts[data['turn']/3 %10]
+		return json.dumps({
+			'move': move,
+			'taunt': theTaunt
+		})
+	else:
+		return json.dumps({
+			'move': move
+		})
 
 our_name = "a1b1"
 	
@@ -79,6 +84,13 @@ def detect_bad(data, our_snake):
 			temp = check_around(board, space[0], space[1])
 			for good_space in temp:
 				curr_score += scores[good_space[2]]
+			# add depth here
+			for space2 in temp:				
+				if(space2[0] >= 0):
+					curr_score += scores[space2[2]]
+					temp2 = check_around(board, space2[0], space2[1])
+					for good_space2 in temp2:
+						curr_score += scores[good_space2[2]]
 		if(curr_score > best_score):
 			best_score = curr_score
 			best_space = curr_space
