@@ -39,11 +39,16 @@ def move():
 	data = bottle.request.json
 	
 	move = default(data)
-
-	return json.dumps({
-		'move': move,
-		'taunt': taunts[data['turn']%10]
-	})
+	if (data['turn']%3 == 0):
+		theTaunt = taunts[data['turn']/3 %10]
+		return json.dumps({
+			'move': move,
+			'taunt': theTaunt
+		})
+	else:
+		return json.dumps({
+			'move': move
+		})
 
 our_name = "a1b1"
 	
