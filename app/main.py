@@ -82,7 +82,7 @@ def detect_bad(data, our_snake):
 			# add depth here
 			for space2 in temp:				
 				if(space2[0] >= 0):
-					curr_score = scores[space2[2]]
+					curr_score += scores[space2[2]]
 					temp2 = check_around(board, space2[0], space2[1])
 					for good_space2 in temp2:
 						curr_score += scores[good_space2[2]]
