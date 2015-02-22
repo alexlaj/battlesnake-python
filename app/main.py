@@ -4,13 +4,13 @@ import sys
 
 taunts = ["I'm Gonna Wreck-It!",
 "I'm not from the candy tree department.",
-"I am bad and that is good, I will never be good and that's not bad, there's no one I'd rather be than me.",
-"I'm Gonna Wreck-It!",
-"It's kind of hard to do your job when nobody likes you for doing it.",
-"I'm Gonna Wreck-It!",
-"I guess it turns out that I don't really need a medal to prove that I'm a good guy and if that little girl likes me, how bad can I be?",
-"I'm Gonna Wreck-It!",
-"I'm already happy, I got the coolest job in the world! It may not be as fancy as being president, but I have a duty, a big duty!",
+"I am bad and that is good, I will never be good and...",
+"...that's not bad, there's no one I'd rather be than me.",
+"It's kind of hard to do your job...",
+"...when nobody likes you for doing it.",
+"I'm already happy, I got the coolest job in the world!",
+"It may not be as fancy as being president,", 
+"but I have a duty, a big duty!",
 "I wonder how many licks it would take to get to your center?"]
 
 @bottle.get('/')
