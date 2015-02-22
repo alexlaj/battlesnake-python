@@ -39,6 +39,7 @@ def move():
 	data = bottle.request.json
 	
 	move = default(data)
+	# Every 3rd turn, post a taunt
 	if (data['turn']%3 == 0):
 		theTaunt = taunts[data['turn']/3 %10]
 		return json.dumps({
@@ -51,7 +52,7 @@ def move():
 		})
 
 our_name = "a1b1"
-	
+# The main function that gets called when a move is requested	
 def default(data):
 	snake_dict = {}
 	snakes = data["snakes"]
@@ -63,14 +64,17 @@ def default(data):
 	move = detect_bad(data, our_snake)
 	sys.stdout.flush()
 	return move
-
+# Spaces that are good to move to
 good_array = ["food", "empty"]
+# Weights for spaces
 scores = { "head" : 0, "body" : 1, "wall" : 1.5, "empty" : 2, "food" : 3 }
+# Decide which space to move to
 def detect_bad(data, our_snake):
 	board = data["board"]
 	head = our_snake["coords"][0]
 	head_x = head[0]
 	head_y = head[1]
+	# Find spaces in the 4-neighborhood around the head that are valid moves
 	good_spaces = check_around(board, head_x, head_y)
 	print(good_spaces)
 	print()
@@ -79,12 +83,15 @@ def detect_bad(data, our_snake):
 	curr_space = 0
 	for space in good_spaces:
 		curr_score = 0
+		# If not a wall (walls are returned with -1,-1 coords)
 		if(space[0] >= 0):
+			# Give the space a score based on what is in it
 			curr_score = scores[space[2]]
+			# Check around that space and give it more score depending on what is around it
 			temp = check_around(board, space[0], space[1])
 			for good_space in temp:
 				curr_score += scores[good_space[2]]
-			# add depth here
+			# Do another iteration of scoring on the 4-neighborhood around the second level spaces
 			for space2 in temp:				
 				if(space2[0] >= 0):
 					curr_score += scores[space2[2]]
@@ -95,9 +102,11 @@ def detect_bad(data, our_snake):
 			best_score = curr_score
 			best_space = curr_space
 		curr_space += 1
+	# Move to the space with the highest score
 	move_space = good_spaces[best_space]
 	return map_direction(head_x, head_y, move_space[0], move_space[1])
-
+	
+# Converts the head x,y and target x,y into a direction string
 def map_direction(head_x, head_y, x, y):
 	if(x < head_x):
 		return "left"
@@ -108,6 +117,7 @@ def map_direction(head_x, head_y, x, y):
 	elif(y > head_y):
 		return "down"
 
+# Checks points in the vicinity of x,y, returns list of [x,y,"state"] (see check_space())
 def check_around(board, x, y):
 	good_spaces = []
 	if(x < 0 or y < 0):
@@ -131,15 +141,15 @@ def check_around(board, x, y):
 	
 	return good_spaces
 
+# Checks a space state to see what it is. Returns [x,y,"state"] with x,y=-1 if wall
 def check_space(board, x, y):
-	print(len(board[0]))
-	print(len(board))
 	is_wall = x < 0 or x > len(board[0]) - 1 or y < 0 or y > len(board) - 1 
 	if(is_wall):
 		return [-1, -1, "wall"]
 	elif(board[x][y]["state"] in good_array):
 		return [x, y, board[x][y]["state"]]
 	return False
+	
 @bottle.post('/end')
 def end():
 	data = bottle.request.json
