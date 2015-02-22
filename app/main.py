@@ -79,6 +79,13 @@ def detect_bad(data, our_snake):
 			temp = check_around(board, space[0], space[1])
 			for good_space in temp:
 				curr_score += scores[good_space[2]]
+			# add depth here
+			for space2 in temp:				
+				if(space2[0] >= 0):
+					curr_score = scores[space2[2]]
+					temp2 = check_around(board, space2[0], space2[1])
+					for good_space2 in temp2:
+						curr_score += scores[good_space2[2]]
 		if(curr_score > best_score):
 			best_score = curr_score
 			best_space = curr_space

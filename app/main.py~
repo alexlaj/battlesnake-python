@@ -29,7 +29,7 @@ def start():
 	return json.dumps({
 		'name': our_name,
 		'color': '#00ff00',
-		'head_url': 'https://github.com/alexlaj/battlesnake-python/blob/master/ralph_full.png',
+		'head_url': 'https://raw.githubusercontent.com/alexlaj/battlesnake-python/master/ralph_full.png',
 		'taunt': 'IM GUNNA WRECK IT!!!'
 	})
 
