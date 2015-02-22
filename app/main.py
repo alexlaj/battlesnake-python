@@ -4,14 +4,14 @@ import sys
 
 taunts = ["I'm Gonna Wreck-It!",
 "I'm not from the candy tree department.",
-"I am bad and that is good, I will never be good and...",
-"...that's not bad, there's no one I'd rather be than me.",
+"I'm Gonna Wreck-It!",
+"There's no one I'd rather be than me.",
+"I'm Gonna Wreck-It!",
 "It's kind of hard to do your job...",
 "...when nobody likes you for doing it.",
-"I'm already happy, I got the coolest job in the world!",
-"It may not be as fancy as being president,", 
-"but I have a duty, a big duty!",
-"I wonder how many licks it would take to get to your center?"]
+"I'm Gonna Wreck-It!",
+"I wonder how many licks it would take to get to your center?",
+"I'm Gonna Wreck-It!"]
 
 @bottle.get('/')
 def index():
