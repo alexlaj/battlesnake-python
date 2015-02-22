@@ -1,4 +1,4 @@
-## a1b1 battlesnke
+## a1b1 battlesnake
 This snake won third place in the 2015 Battlesnake competition at UVic
 
 A simple [BattleSnake AI](http://battlesnake.io) written in Python. Available live at [a1b1.herokuapp.com](http://a1b1.herokuapp.com).
